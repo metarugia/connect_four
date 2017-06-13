@@ -1,0 +1,18 @@
+<div class="container-fluid">
+  <div class="row">
+    <div ng-repeat="i in numColumns track by $index">
+      <div href = "#" class="col-xs-2 no-select" id="column{{$index}}" ng-click="dropPiece($index)" style="padding:0; margin:0; width:80px;">
+        <svg height="480" width="80">
+          <rect width="100%" height="100%" fill="blue"/>
+          <circle id="circle{{$index}}0" cx="40" cy="40" r="30" fill="white"/>
+          <circle id="circle{{$index}}1" cx="40" cy="120" r="30" fill="white"/>
+          <circle id="circle{{$index}}2" cx="40" cy="200" r="30" fill="white"/>
+          <circle id="circle{{$index}}3" cx="40" cy="280" r="30" fill="white"/>
+          <circle id="circle{{$index}}4" cx="40" cy="360" r="30" fill="white"/>
+          <circle id="circle{{$index}}5" cx="40" cy="440" r="30" fill="white"/>
+        </svg>
+      </div>
+    </div>
+
+  </div>
+</div>
