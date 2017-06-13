@@ -19,9 +19,9 @@ angular.module('connectFourApp')
     $scope.numRows = [];
     $scope.board = new Array();
 
-    for(var i = 0; i < COLUMNS; i++) {
+    for(var i = 0; i < ROWS; i++) {
       $scope.board[i] = new Array();
-      for(var j = 0; j < ROWS; j++) {
+      for(var j = 0; j < COLUMNS; j++) {
         $scope.board[i][j] = EMPTY;
       }
     }
@@ -45,11 +45,27 @@ angular.module('connectFourApp')
     $scope.dropPiece = function(index) {
       if($scope.canMove(index)) {
         var columnName = "column" + index;
+        var rowPosition = $scope.numColumns[index];
         var column = document.getElementById(columnName);
-        column.getElementsByTagName("circle")[$scope.numColumns[index]].style.fill = $scope.playerTurn;
+
+        column.getElementsByTagName("circle")[rowPosition].style.fill = $scope.playerTurn;
+        $scope.board[rowPosition][index] = $scope.playerTurn;
+        if($scope.checkForWin(rowPosition, index))
+          console.log($scope.playerTurn + ' WINS!!!!');
         $scope.numColumns[index]--;
         $scope.nextPlayer();
       }
+    }
+
+    $scope.printBoard = function() {
+      var board = '| ';
+      for(var i = 0; i < ROWS; i++) {
+        for(var j = 0; j < COLUMNS; j++) {
+          board += $scope.board[i][j] + ' | ';
+        }
+        board += '\n| ';
+      }
+      console.log(board);
     }
 
     $scope.canMove = function(index)
@@ -58,6 +74,28 @@ angular.module('connectFourApp')
         return false;
       }
       return true;
+    }
+
+    $scope.checkForWin = function(row, column) {
+      var numConnected = 1;
+      var directions = [[1,1], [-1,-1], [1,-1], [-1,1], [1,0], [0,1], [-1,0], [0,-1]];
+      var currentPiece = $scope.board[row][column];
+      for(var k = 0; k < directions.length; k++) {
+        for (var i = row + directions[k][0], j = column + directions[k][1]; i < ROWS && j < COLUMNS &&
+              i >=0 && j >=0 && numConnected < 4; i+= directions[k][0], j+= directions[k][1]) {
+          if ($scope.board[i][j] !== currentPiece) {
+            break;
+          }
+          numConnected++;
+        }
+
+        if (numConnected === 4)
+          return true;
+
+        numConnected = 1;
+      }
+
+      return false;
     }
 
   });
