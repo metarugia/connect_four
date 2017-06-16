@@ -8,16 +8,24 @@
  * Controller of the connectFourApp
  */
 angular.module('connectFourApp')
-  .controller('ConnectFourCtrl', function ($scope) {
+  .controller('ConnectFourCtrl',function ($scope, minimaxService) {
     const RED = 'red';
     const YELLOW = 'yellow';
     const EMPTY = 'white';
     const ROWS = 6;
     const COLUMNS = 7;
 
+    //order is N, NE, E, SE, S, SW, W, NW
+    const DIRECTIONS = [[-1,0], [-1,1], [0,1], [1,1], [1,0], [1, -1], [0,-1], [-1,-1]];
+
+    $scope.playerTurn = RED;
+    $scope.winner = 'NONE';
+    $scope.gameOver = false;
     $scope.numColumns = [];
     $scope.numRows = [];
     $scope.board = new Array();
+    $scope.aiOn = false;
+
 
     for(var i = 0; i < ROWS; i++) {
       $scope.board[i] = new Array();
@@ -25,6 +33,8 @@ angular.module('connectFourApp')
         $scope.board[i][j] = EMPTY;
       }
     }
+
+    minimaxService.evaluate($scope.board,2,2, $scope.playerTurn);
 
     for(var i = 0; i < ROWS; i++) {
       $scope.numRows.push(ROWS);
@@ -34,7 +44,7 @@ angular.module('connectFourApp')
       $scope.numColumns.push(ROWS - 1);
     }
 
-    $scope.playerTurn = RED;
+
     $scope.nextPlayer = function() {
       if($scope.playerTurn === YELLOW)
         $scope.playerTurn = RED;
@@ -50,10 +60,40 @@ angular.module('connectFourApp')
 
         column.getElementsByTagName("circle")[rowPosition].style.fill = $scope.playerTurn;
         $scope.board[rowPosition][index] = $scope.playerTurn;
-        if($scope.checkForWin(rowPosition, index))
-          console.log($scope.playerTurn + ' WINS!!!!');
+        console.log(minimaxService.evaluate($scope.board, rowPosition, index, $scope.playerTurn));
+        if($scope.checkForWin(rowPosition, index)) {
+          if($scope.playerTurn === RED)
+            $scope.winner = 'RED';
+          else $scope.winner = 'YELLOW';
+          $scope.gameOver = true;
+        }
         $scope.numColumns[index]--;
         $scope.nextPlayer();
+        if($scope.aiOn === true)
+          $scope.aiDropPiece();
+
+      }
+    }
+
+    $scope.aiDropPiece = function() {
+
+      if($scope.canMove(index)) {
+        var columnName = "column" + index;
+        console.log(columnName);
+        var rowPosition = $scope.numColumns[index];
+        var column = document.getElementById(columnName);
+
+        column.getElementsByTagName("circle")[rowPosition].style.fill = $scope.playerTurn;
+        $scope.board[rowPosition][index] = $scope.playerTurn;
+        if($scope.checkForWin(rowPosition, index)) {
+          if($scope.playerTurn === RED)
+            $scope.winner = 'RED';
+          else $scope.winner = 'YELLOW';
+          $scope.gameOver = true;
+        }
+        $scope.numColumns[index]--;
+        $scope.nextPlayer();
+
       }
     }
 
@@ -78,24 +118,37 @@ angular.module('connectFourApp')
 
     $scope.checkForWin = function(row, column) {
       var numConnected = 1;
-      var directions = [[1,1], [-1,-1], [1,-1], [-1,1], [1,0], [0,1], [-1,0], [0,-1]];
-      var currentPiece = $scope.board[row][column];
-      for(var k = 0; k < directions.length; k++) {
-        for (var i = row + directions[k][0], j = column + directions[k][1]; i < ROWS && j < COLUMNS &&
-              i >=0 && j >=0 && numConnected < 4; i+= directions[k][0], j+= directions[k][1]) {
-          if ($scope.board[i][j] !== currentPiece) {
-            break;
-          }
-          numConnected++;
-        }
-
-        if (numConnected === 4)
+      for(var k = 0; k < DIRECTIONS.length; k++) {
+        numConnected = $scope.checkDirection(row, column, k, numConnected);
+        if(numConnected === 4)
           return true;
 
+        //check opposite direction in case this new piece was a middle piece
+        numConnected = $scope.checkDirection(row, column, (k+4)%8, numConnected);
+        if(numConnected === 4)
+          return true;
         numConnected = 1;
       }
 
       return false;
     }
+
+    $scope.checkDirection = function(row, column, dir, numConnected) {
+      var currentPiece = $scope.board[row][column];
+      for (var i = row + DIRECTIONS[dir][0], j = column + DIRECTIONS[dir][1]; i < ROWS && j < COLUMNS &&
+      i >=0 && j >=0 && numConnected < 4; i+= DIRECTIONS[dir][0], j+= DIRECTIONS[dir][1]) {
+        if ($scope.board[i][j] !== currentPiece) {
+          break;
+        }
+        numConnected++;
+      }
+
+      return numConnected;
+
+    }
+
+    /*=================================================================================================================*/
+
+
 
   });

@@ -1,5 +1,6 @@
 <div class="container-fluid">
-  <div class="row">
+  <h1 ng-show="gameOver">{{winner}} WINS!!!</h1>
+  <div id="game-board" class="row">
     <div ng-repeat="i in numColumns track by $index">
       <div href = "#" class="col-xs-2 no-select" id="column{{$index}}" ng-click="dropPiece($index)" style="padding:0; margin:0; width:80px;">
         <svg height="480" width="80">
