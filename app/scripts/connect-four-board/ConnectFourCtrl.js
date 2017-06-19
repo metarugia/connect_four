@@ -19,12 +19,13 @@ angular.module('connectFourApp')
     const DIRECTIONS = [[-1,0], [-1,1], [0,1], [1,1], [1,0], [1, -1], [0,-1], [-1,-1]];
 
     $scope.playerTurn = RED;
-    $scope.winner = 'NONE';
+    $scope.gameOverMessage = '';
     $scope.gameOver = false;
     $scope.numColumns = [];
     $scope.numRows = [];
     $scope.board = new Array();
-    $scope.aiOn = false;
+    $scope.aiOn = true;
+    $scope.turnCount = 0;
 
 
     for(var i = 0; i < ROWS; i++) {
@@ -33,8 +34,6 @@ angular.module('connectFourApp')
         $scope.board[i][j] = EMPTY;
       }
     }
-
-    minimaxService.evaluate($scope.board,2,2, $scope.playerTurn);
 
     for(var i = 0; i < ROWS; i++) {
       $scope.numRows.push(ROWS);
@@ -52,6 +51,7 @@ angular.module('connectFourApp')
         $scope.playerTurn = YELLOW;
     }
 
+
     $scope.dropPiece = function(index) {
       if($scope.canMove(index)) {
         var columnName = "column" + index;
@@ -60,42 +60,66 @@ angular.module('connectFourApp')
 
         column.getElementsByTagName("circle")[rowPosition].style.fill = $scope.playerTurn;
         $scope.board[rowPosition][index] = $scope.playerTurn;
-        console.log(minimaxService.evaluate($scope.board, rowPosition, index, $scope.playerTurn));
+        $scope.turnCount++;
         if($scope.checkForWin(rowPosition, index)) {
           if($scope.playerTurn === RED)
-            $scope.winner = 'RED';
-          else $scope.winner = 'YELLOW';
+            $scope.gameOverMessage = 'RED WINS!!!';
+          else $scope.gameOverMessage = 'YELLOW WINS!!!';
           $scope.gameOver = true;
+          document.getElementById("game-board").className += " unclickable";
         }
-        $scope.numColumns[index]--;
-        $scope.nextPlayer();
-        if($scope.aiOn === true)
-          $scope.aiDropPiece();
+        else if(minimaxService.checkBoardForDraw($scope.board)) {
+          $scope.gameOverMessage = 'DRAW!!!';
+          $scope.gameOver=true;
+        }
+        else {
+          $scope.numColumns[index]--;
+          $scope.nextPlayer();
+          if($scope.aiOn === true)
+            $scope.aiDropPiece();
+        }
 
       }
     }
 
     $scope.aiDropPiece = function() {
-
+      var index = 0;
+      console.log('aimoving');
+      if($scope.turnCount <= 1) {
+        index = 3;
+      }
+      else {
+        index = minimaxService.alphabeta($scope.board, $scope.playerTurn, 0,-100000000, 100000000);
+        //index = minimaxService.minimax($scope.board, $scope.playerTurn, 0);
+      }
+       console.log(index);
       if($scope.canMove(index)) {
         var columnName = "column" + index;
-        console.log(columnName);
         var rowPosition = $scope.numColumns[index];
         var column = document.getElementById(columnName);
 
         column.getElementsByTagName("circle")[rowPosition].style.fill = $scope.playerTurn;
         $scope.board[rowPosition][index] = $scope.playerTurn;
+        $scope.turnCount++;
         if($scope.checkForWin(rowPosition, index)) {
           if($scope.playerTurn === RED)
-            $scope.winner = 'RED';
-          else $scope.winner = 'YELLOW';
+            $scope.gameOverMessage = 'RED WINS!!!';
+          else $scope.gameOverMessage = 'YELLOW WINS!!!';
           $scope.gameOver = true;
+          document.getElementById("game-board").className += " unclickable";
         }
-        $scope.numColumns[index]--;
-        $scope.nextPlayer();
+        else if(minimaxService.checkBoardForDraw($scope.board)) {
+          $scope.gameOverMessage = 'DRAW!!!';
+          $scope.gameOver=true;
+        }
+        else {
+          $scope.numColumns[index]--;
+          $scope.nextPlayer();
+        }
 
       }
     }
+
 
     $scope.printBoard = function() {
       var board = '| ';
@@ -105,7 +129,7 @@ angular.module('connectFourApp')
         }
         board += '\n| ';
       }
-      console.log(board);
+      return board;
     }
 
     $scope.canMove = function(index)
@@ -146,6 +170,9 @@ angular.module('connectFourApp')
       return numConnected;
 
     }
+    $( document ).ready(function() {
+      //$scope.aiDropPiece();
+    });
 
     /*=================================================================================================================*/
 
