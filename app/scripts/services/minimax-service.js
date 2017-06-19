@@ -39,7 +39,6 @@ angular.module('connectFourApp')
 
       //Call evaluation function on leaf nodes
       if(depth === DEPTH) {
-        //console.log(board);
         if(depth%2 === 0) {
           if(this.checkBoardForWin(board,this.otherPlayer(player)))
             minimax = -1*WIN;
@@ -78,7 +77,7 @@ angular.module('connectFourApp')
       }
       else {
         if(this.checkBoardForWin(board,this.otherPlayer(player))){
-          return WIN
+          return WIN;
         }
         else if(this.checkBoardForDraw(board))
           return 0;
@@ -126,8 +125,6 @@ angular.module('connectFourApp')
           }
         }
 
-        childValue = 0;
-
       }
 
 
@@ -143,7 +140,7 @@ angular.module('connectFourApp')
     }
 
     /**
-     * alphabeta variation of minimax
+     * Alpha-Beta variation of minimax function.
      * @param board
      * @param player
      * @param depth
@@ -208,8 +205,6 @@ angular.module('connectFourApp')
       var newBoard = [];
       var childValue = 0;
       var a = alpha;
-      if(depth ===0){
-      }
       var b = beta;
 
       //Determine the value of current state's children
@@ -265,7 +260,6 @@ angular.module('connectFourApp')
 
 
       if(depth === 0) {
-        console.log(numIterations);
         return bestColumn;
       }
 
@@ -310,7 +304,6 @@ angular.module('connectFourApp')
 
 
           //evaluate horizontal
-            //1100
             if (curCol < COLUMNS - 3) {
               value += 3*this.checkForTwo(board, row, curCol, player, DIRECTIONS[2]);
               value += 3*this.checkForThree(board, row, curCol, player, DIRECTIONS[2]);
@@ -436,7 +429,7 @@ angular.module('connectFourApp')
         &&row + direction[0]*3 >= 0
         && column + direction[1]*3 < COLUMNS
         && column + direction[1]*3 >=0
-        &&board[row][column] === WHITE
+        && board[row][column] === WHITE
         && board[row + direction[0]][column + direction[1]] === player
         && board[row + direction[0]*2][column + direction[1]*2] === WHITE
         && board[row + direction[0]*3][column + direction[1]*3] === player) {
@@ -445,6 +438,16 @@ angular.module('connectFourApp')
 
       return value;
     }
+
+    /**
+     * Helper function to check for win in a particular direction.
+     * @param board
+     * @param row
+     * @param column
+     * @param player
+     * @param direction
+     * @returns {number}
+     */
 
     this.checkForWin = function(board, row, column, player, direction) {
       var value = 0;
@@ -458,6 +461,12 @@ angular.module('connectFourApp')
       return value;
     }
 
+    /**
+     * Checks entire board for win.
+     * @param board
+     * @param player
+     * @returns {boolean}
+     */
     this.checkBoardForWin = function(board,player) {
       for (var row = 0; row < ROWS; row++) {
         for (var column = 0; column < COLUMNS; column++) {
@@ -496,6 +505,12 @@ angular.module('connectFourApp')
       }
       return false;
     }
+
+    /**
+     * Checks entire board for draw.
+     * @param board
+     * @returns {boolean}
+     */
 
     this.checkBoardForDraw = function (board) {
       for(var i = 0; i < COLUMNS; i++) {
@@ -540,6 +555,12 @@ angular.module('connectFourApp')
     }
 
 
+    /**
+     * Makes a duplicate copy of the game board. Generally used to avoid
+     * reference issues with the board being copied.
+     * @param board
+     * @returns {*}
+     */
 
     this.copyBoard = function( board ) {
 
@@ -559,6 +580,12 @@ angular.module('connectFourApp')
 
     }
 
+    /**
+     * Creates a string version of the game board.
+     * @param b
+     * @returns {string}
+     */
+
     this.printBoard = function(b) {
       var board = '| ';
       for(var i = 0; i < ROWS; i++) {
@@ -569,6 +596,13 @@ angular.module('connectFourApp')
       }
       return board;
     }
+
+    /**
+     * Determines if column is full.
+     * @param board
+     * @param column
+     * @returns {boolean}
+     */
 
     this.canMove = function(board, column) {
       if(board[0][column] === WHITE)

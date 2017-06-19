@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="97050592-0af9-4063-9e83-f1fc479bd06b" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/connect-four-board/ConnectFourCtrl.js" afterPath="$PROJECT_DIR$/app/scripts/connect-four-board/ConnectFourCtrl.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/connect-four-board/connect-four-board.html" afterPath="$PROJECT_DIR$/app/scripts/connect-four-board/connect-four-board.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/services/minimax-service.js" afterPath="$PROJECT_DIR$/app/scripts/services/minimax-service.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -71,21 +70,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ConnectFourCtrl.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ConnectFourCtrl.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/scripts/connect-four-board/ConnectFourCtrl.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="249">
-              <caret line="20" column="28" lean-forward="false" selection-start-line="20" selection-start-column="28" selection-end-line="20" selection-end-column="28" />
+            <state relative-caret-position="870">
+              <caret line="58" column="0" lean-forward="false" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="minimax-service.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="minimax-service.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/scripts/services/minimax-service.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="19" column="23" lean-forward="false" selection-start-line="19" selection-start-column="23" selection-end-line="19" selection-end-column="23" />
+            <state relative-caret-position="9000">
+              <caret line="600" column="36" lean-forward="false" selection-start-line="600" selection-start-column="36" selection-end-line="600" selection-end-column="36" />
               <folding />
             </state>
           </provider>
@@ -103,13 +102,22 @@
       <find>curCol</find>
       <find>1000000</find>
       <find>-WIN</find>
-      <find>WIN0</find>
       <find>$scope.winner</find>
+      <find>$scope.turnCount</find>
+      <find>$scope.aiOn</find>
+      <find>numRows</find>
+      <find>$scope.canMove</find>
+      <find>WIN0</find>
+      <find>canMove(index)</find>
     </findStrings>
     <replaceStrings>
       <replace>this</replace>
       <replace>-1*WIN</replace>
+      <replace>aiOn</replace>
+      <replace>$scope.numRows</replace>
+      <replace>canMove</replace>
       <replace>WIN</replace>
+      <replace>minimaxService.canMove(board,index)</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -123,9 +131,9 @@
         <option value="$PROJECT_DIR$/test/spec/controllers/main.js" />
         <option value="$PROJECT_DIR$/app/styles/main.css" />
         <option value="$PROJECT_DIR$/app/index.html" />
-        <option value="$PROJECT_DIR$/app/scripts/services/minimax-service.js" />
         <option value="$PROJECT_DIR$/app/scripts/connect-four-board/connect-four-board.html" />
         <option value="$PROJECT_DIR$/app/scripts/connect-four-board/ConnectFourCtrl.js" />
+        <option value="$PROJECT_DIR$/app/scripts/services/minimax-service.js" />
       </list>
     </option>
   </component>
@@ -391,12 +399,12 @@
       <option name="presentableId" value="Default" />
       <updated>1497216991542</updated>
       <workItem from="1497216994640" duration="6042000" />
-      <workItem from="1497290423931" duration="78347000" />
+      <workItem from="1497290423931" duration="81180000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="84389000" />
+    <option name="totallyTimeSpent" value="87222000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="139" y="40" width="1400" height="913" extended-state="0" />
@@ -433,7 +441,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/app/scripts/services/minimax-service.js</url>
-          <line>149</line>
+          <line>146</line>
           <properties />
         </line-breakpoint>
       </breakpoints>
@@ -547,14 +555,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/scripts/services/minimax-service.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="23" lean-forward="false" selection-start-line="19" selection-start-column="23" selection-end-line="19" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/scripts/connect-four-board/connect-four-board.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
@@ -567,8 +567,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/scripts/connect-four-board/ConnectFourCtrl.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="249">
-          <caret line="20" column="28" lean-forward="false" selection-start-line="20" selection-start-column="28" selection-end-line="20" selection-end-column="28" />
+        <state relative-caret-position="870">
+          <caret line="58" column="0" lean-forward="false" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/scripts/services/minimax-service.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="9000">
+          <caret line="600" column="36" lean-forward="false" selection-start-line="600" selection-start-column="36" selection-end-line="600" selection-end-column="36" />
           <folding />
         </state>
       </provider>
