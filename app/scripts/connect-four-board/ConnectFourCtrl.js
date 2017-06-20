@@ -23,7 +23,8 @@ angular.module('connectFourApp')
     $scope.gameOverMessage = '';
     $scope.gameOver = false;
     $scope.numColumns = [];
-    $scope.numRows = [];
+    $scope.numPlayers = '1';
+    $scope.difficulty='2';
 
     /***************** variables *****************/
 
@@ -41,10 +42,6 @@ angular.module('connectFourApp')
       }
     }
 
-    for(var i = 0; i < ROWS; i++) {
-      $scope.numRows.push(ROWS);
-    }
-
     for(var i = 0; i < COLUMNS; i++) {
       $scope.numColumns.push(ROWS - 1);
     }
@@ -58,7 +55,7 @@ angular.module('connectFourApp')
      */
 
     $scope.dropPiece = function(index) {
-      if(minimaxService.canMove(board,index)) {
+      if(minimaxService.canMove(board,index) && $scope.gameOver === false) {
         var columnName = "column" + index;
         var rowPosition = $scope.numColumns[index];
         var column = document.getElementById(columnName);
@@ -71,7 +68,6 @@ angular.module('connectFourApp')
             $scope.gameOverMessage = 'RED WINS!!!';
           else $scope.gameOverMessage = 'YELLOW WINS!!!';
           $scope.gameOver = true;
-          document.getElementById("game-board").className += " unclickable";
         }
         else if(minimaxService.checkBoardForDraw(board)) {
           $scope.gameOverMessage = 'DRAW!!!';
@@ -83,6 +79,7 @@ angular.module('connectFourApp')
           if(aiOn === true)
             aiDropPiece();
         }
+        console.log($scope.numPlayers);
 
       }
     }
@@ -93,12 +90,14 @@ angular.module('connectFourApp')
      */
 
     var aiDropPiece = function() {
+      if($scope.gameOver === true)
+        return;
       var index = 0;
       if(turnCount <= 1) {
         index = 3;
       }
       else {
-        index = minimaxService.alphabeta(board, playerTurn, 0,-100000000, 100000000);
+        index = minimaxService.alphabeta(board, playerTurn, 0,parseInt($scope.difficulty),-100000000, 100000000);
         //index = minimaxService.minimax(board, playerTurn, 0);
       }
       if(minimaxService.canMove(board,index)) {
@@ -114,7 +113,6 @@ angular.module('connectFourApp')
             $scope.gameOverMessage = 'RED WINS!!!';
           else $scope.gameOverMessage = 'YELLOW WINS!!!';
           $scope.gameOver = true;
-          document.getElementById("game-board").className += " unclickable";
         }
         else if(minimaxService.checkBoardForDraw(board)) {
           $scope.gameOverMessage = 'DRAW!!!';
@@ -139,7 +137,38 @@ angular.module('connectFourApp')
         playerTurn = YELLOW;
     }
 
-    /*=================================================================================================================*/
+    var createNewBoard = function() {
+      board = new Array();
+      var columnId = "";
+      for(var i = 0; i < ROWS; i++) {
+        board[i] = new Array();
+        for(var j = 0; j < COLUMNS; j++) {
+          board[i][j] = WHITE;
+          columnId = document.getElementById("column" + j);
+          columnId.getElementsByTagName("circle")[i].style.fill = WHITE;
+        }
+      }
+
+      $scope.numColumns = [];
+
+      for(var i = 0; i < COLUMNS; i++) {
+        $scope.numColumns.push(ROWS - 1);
+      }
+    }
+
+    $scope.startGame = function() {
+      createNewBoard();
+      turnCount = 0;
+      playerTurn = RED;
+      if($scope.numPlayers === '1')
+        aiOn = true;
+      else {
+        aiOn = false;
+      }
+      $scope.gameOver = false;
+    }
+
+
 
 
 

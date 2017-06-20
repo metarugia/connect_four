@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <h1 ng-show="gameOver">{{gameOverMessage}}</h1>
-  <div id="game-board" class="row">
-    <div ng-repeat="i in numColumns track by $index">
+  <div class="row" style="min-width:560px">
+    <div id="game-board" ng-repeat="i in numColumns track by $index">
       <div href = "#" class="col-xs-2 no-select" id="column{{$index}}" ng-click="dropPiece($index)" style="padding:0; margin:0; width:80px;">
         <svg height="480" width="80">
           <rect width="100%" height="100%" fill="blue"/>
@@ -12,6 +12,29 @@
           <circle id="circle{{$index}}4" cx="40" cy="360" r="30" fill="white"/>
           <circle id="circle{{$index}}5" cx="40" cy="440" r="30" fill="white"/>
         </svg>
+      </div>
+    </div>
+    <div class="col-xs-2">
+      <div class="row">
+        <div class="col-md-12" style="margin-bottom:50px;">
+          <span>Players: </span>
+          <select id="player-select" ng-model="numPlayers">
+            <option value="1">1</option>
+            <option value="2">2</option>
+          </select>
+        </div>
+        <div class="col-md-12" style="margin-bottom:50px;">
+          <span>Difficulty</span>
+          <select id="difficulty-select" ng-model="difficulty">
+            <option value="2">Easy</option>
+            <option value="4">Medium</option>
+            <option value="6">Hard</option>
+            <option value="7">Very Hard</option>
+          </select>
+        </div>
+        <div class="col-md-12">
+          <button type="button" ng-click="startGame()" class="btn btn-primary">New Game</button>
+        </div>
       </div>
     </div>
 

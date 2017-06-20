@@ -18,7 +18,6 @@ angular.module('connectFourApp')
     const TWOIN = 10;
     const THREEIN = 1000;
     const WIN = 1000000;
-    const DEPTH = 4;
     var numIterations = 0;
 
 
@@ -30,7 +29,7 @@ angular.module('connectFourApp')
      * @returns if depth > 0, returns minimax value for current state.  Otherwise, returns
      * best column choice.
      */
-    this.minimax = function(board, player, depth) {
+    this.minimax = function(board, player, depth, maxDepth) {
       var minimax = 0;
       var bestColumn = 0;
       numIterations++;
@@ -38,7 +37,7 @@ angular.module('connectFourApp')
 
 
       //Call evaluation function on leaf nodes
-      if(depth === DEPTH) {
+      if(depth === maxDepth) {
         if(depth%2 === 0) {
           if(this.checkBoardForWin(board,this.otherPlayer(player)))
             minimax = -1*WIN;
@@ -90,9 +89,9 @@ angular.module('connectFourApp')
       for(var i = 0; i < COLUMNS; i++) {
 
         if(this.canMove(board,i) === false) {
-          if(i===bestColumn)
+          if(i === bestColumn && depth === 0)
             while(this.canMove(board,bestColumn) === false)
-              bestColumn = bestColumn+1%(COLUMNS-1);
+              bestColumn = bestColumn+(1%(COLUMNS-1));
           continue;
         }
 
@@ -109,17 +108,17 @@ angular.module('connectFourApp')
           minimax = 10000000;
 
         //find minimax value of ith child state
-        childValue = this.minimax(newBoard, this.otherPlayer(player), depth+1);
+        childValue = this.minimax(newBoard, this.otherPlayer(player), depth+1, maxDepth);
 
 
         if(depth %2 === 0) {
-          if(childValue > minimax) {
+          if(childValue >= minimax) {
             minimax = childValue;
             bestColumn = i;
           }
         }
         else {
-          if(childValue < minimax) {
+          if(childValue <= minimax) {
             minimax = childValue;
             bestColumn = i;
           }
@@ -149,14 +148,15 @@ angular.module('connectFourApp')
      * @returns {number}
      */
 
-    this.alphabeta = function(board, player,depth, alpha, beta) {
+    this.alphabeta = function(board, player,depth,maxDepth, alpha, beta) {
       var minimax = 0;
       var bestColumn = 0;
       numIterations++;
 
 
+      console.log(depth);
       //Call evaluation function on leaf nodes
-      if(depth === DEPTH) {
+      if(depth === maxDepth) {
         //console.log(board);
         if(depth%2 === 0) {
           if(this.checkBoardForWin(board,this.otherPlayer(player)))
@@ -227,7 +227,7 @@ angular.module('connectFourApp')
           minimax = WIN;
 
         //find minimax value of ith child state
-        childValue = this.alphabeta(newBoard, this.otherPlayer(player), depth+1, a, b);
+        childValue = this.alphabeta(newBoard, this.otherPlayer(player), depth+1,maxDepth, a, b);
 
 
         if(depth %2 === 0) {
@@ -425,14 +425,15 @@ angular.module('connectFourApp')
         && board[row + direction[0]*3][column + direction[1]*3] === player) {
         value += THREEIN;
       }
-      else if (row + direction[0]*3 < ROWS
-        &&row + direction[0]*3 >= 0
-        && column + direction[1]*3 < COLUMNS
-        && column + direction[1]*3 >=0
+      else if (row + direction[0]*4 < ROWS
+        &&row + direction[0]*4 >= 0
+        && column + direction[1]*4 < COLUMNS
+        && column + direction[1]*4 >=0
         && board[row][column] === WHITE
         && board[row + direction[0]][column + direction[1]] === player
-        && board[row + direction[0]*2][column + direction[1]*2] === WHITE
-        && board[row + direction[0]*3][column + direction[1]*3] === player) {
+        && board[row + direction[0]*2][column + direction[1]*2] === player
+        && board[row + direction[0]*3][column + direction[1]*3] === player
+        && board[row + direction[0]*4][column + direction[1]*4] === WHITE) {
         value += THREEIN*2;
       }
 
