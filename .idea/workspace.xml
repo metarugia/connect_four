@@ -2,16 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="97050592-0af9-4063-9e83-f1fc479bd06b" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/index.html" afterPath="$PROJECT_DIR$/app/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/app.js" afterPath="$PROJECT_DIR$/app/scripts/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/connect-four-board/ConnectFourCtrl.js" afterPath="$PROJECT_DIR$/app/scripts/connect-four-board/ConnectFourCtrl.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/connect-four-board/connect-four-board.html" afterPath="$PROJECT_DIR$/app/scripts/connect-four-board/connect-four-board.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/scripts/services/minimax-service.js" afterPath="$PROJECT_DIR$/app/scripts/services/minimax-service.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bower.json" afterPath="$PROJECT_DIR$/bower.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package-lock.json" afterPath="$PROJECT_DIR$/package-lock.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/karma.conf.js" afterPath="$PROJECT_DIR$/test/karma.conf.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -34,16 +25,6 @@
               <folding>
                 <marker date="1497932458000" expanded="true" signature="2722:3064" ph="..." />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Gruntfile.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Gruntfile.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="264">
-              <caret line="40" column="41" lean-forward="false" selection-start-line="40" selection-start-column="35" selection-end-line="40" selection-end-column="41" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -103,11 +84,41 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="minimax-service.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="minimax-service.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/scripts/services/minimax-service.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-7067">
               <caret line="71" column="20" lean-forward="true" selection-start-line="71" selection-start-column="20" selection-end-line="71" selection-end-column="20" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/bower_components/angular-ui-select/README.md">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="315">
+              <caret line="21" column="3" lean-forward="true" selection-start-line="21" selection-start-column="3" selection-end-line="21" selection-end-column="3" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/bower_components/angular-touch/README.md">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="180">
+              <caret line="12" column="0" lean-forward="true" selection-start-line="12" selection-start-column="0" selection-end-line="14" selection-end-column="3" />
               <folding />
             </state>
           </provider>
@@ -135,8 +146,8 @@
       <find>numRows</find>
       <find>this.this</find>
       <find>$scope.onePlayerGame</find>
-      <find>maxDepth</find>
       <find>alphabeta</find>
+      <find>maxDepth</find>
     </findStrings>
     <replaceStrings>
       <replace>this</replace>
@@ -147,8 +158,8 @@
       <replace>WIN</replace>
       <replace>maxDepth</replace>
       <replace>minimaxService.canMove(board,index)</replace>
-      <replace>thism</replace>
       <replace>$scope.numPlayers</replace>
+      <replace>thism</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -166,6 +177,7 @@
         <option value="$PROJECT_DIR$/app/scripts/connect-four-board/ConnectFourCtrl.js" />
         <option value="$PROJECT_DIR$/app/scripts/connect-four-board/connect-four-board.html" />
         <option value="$PROJECT_DIR$/app/scripts/services/minimax-service.js" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -246,29 +258,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="angular-ui-select" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="connect-four" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="connect-four" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bower_components" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="angular-ui-select" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dist" />
+              <option name="myItemId" value="angular-touch" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -507,12 +497,12 @@
       <option name="presentableId" value="Default" />
       <updated>1497216991542</updated>
       <workItem from="1497216994640" duration="6042000" />
-      <workItem from="1497290423931" duration="91634000" />
+      <workItem from="1497290423931" duration="91958000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="97676000" />
+    <option name="totallyTimeSpent" value="98000000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="137" y="37" width="1400" height="913" extended-state="0" />
@@ -735,6 +725,30 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-7067">
           <caret line="71" column="20" lean-forward="true" selection-start-line="71" selection-start-column="20" selection-end-line="71" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bower_components/angular-ui-select/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bower_components/angular-touch/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="0" lean-forward="true" selection-start-line="12" selection-start-column="0" selection-end-line="14" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="21" column="3" lean-forward="true" selection-start-line="21" selection-start-column="3" selection-end-line="21" selection-end-column="3" />
           <folding />
         </state>
       </provider>
