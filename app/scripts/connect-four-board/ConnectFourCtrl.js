@@ -98,7 +98,7 @@ angular.module('connectFourApp')
       }
       else {
         index = minimaxService.alphabeta(board, playerTurn, 0,parseInt($scope.difficulty),-100000000, 100000000);
-        //index = minimaxService.minimax(board, playerTurn, 0);
+        //index = minimaxService.minimax(board, playerTurn, 0, parseInt($scope.difficulty));
       }
       if(minimaxService.canMove(board,index)) {
         var columnName = "column" + index;

@@ -21,7 +21,7 @@ Make sure grunt is installed.  To install it, run:
 npm install -g grunt
 ```
 
-Run `grunt` for building and `grunt serve` for preview.
+Run `grunt build` for building and `grunt serve` for preview.
 
 ## Testing
 

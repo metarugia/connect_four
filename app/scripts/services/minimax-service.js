@@ -34,8 +34,6 @@ angular.module('connectFourApp')
       var bestColumn = 0;
       numIterations++;
 
-
-
       //Call evaluation function on leaf nodes
       if(depth === maxDepth) {
         if(depth%2 === 0) {
@@ -63,8 +61,7 @@ angular.module('connectFourApp')
 
         return minimax;
       }
-
-
+      
 
       //no need for further evaluation if current state is in intermediate levels and results in a win or tie.
       if(depth%2 === 0) {
@@ -85,6 +82,11 @@ angular.module('connectFourApp')
       var newBoard = [];
       var childValue = 0;
 
+      //initialize minimax value based on whether current level is for maximizing or minimizing player
+      if(depth%2 === 0)
+        minimax = -10000000;
+      else
+        minimax = 10000000;
       //Determine the value of current state's children
       for(var i = 0; i < COLUMNS; i++) {
 
@@ -98,14 +100,6 @@ angular.module('connectFourApp')
 
         newBoard = this.dropPiece(this.copyBoard(board), i, player);
 
-
-
-
-        //initialize minimax value based on whether current level is for maximizing or minimizing player
-        if(i === 0 && depth%2 === 0)
-          minimax = -10000000;
-        else if(i === 0)
-          minimax = 10000000;
 
         //find minimax value of ith child state
         childValue = this.minimax(newBoard, this.otherPlayer(player), depth+1, maxDepth);
@@ -206,6 +200,11 @@ angular.module('connectFourApp')
       var childValue = 0;
       var a = alpha;
       var b = beta;
+      //initialize minimax value based on whether current level is for maximizing or minimizing player
+      if(depth%2 === 0)
+        minimax = -10000000;
+      else
+        minimax = 10000000;
 
       //Determine the value of current state's children
       for(var i = 0; i < COLUMNS; i++) {
@@ -220,11 +219,7 @@ angular.module('connectFourApp')
 
         newBoard = this.dropPiece(this.copyBoard(board), i, player);
 
-        //initialize minimax value based on whether current level is for maximizing or minimizing player
-        if(i === 0 && depth%2 === 0)
-          minimax = -1*WIN;
-        else if(i === 0)
-          minimax = WIN;
+
 
         //find minimax value of ith child state
         childValue = this.alphabeta(newBoard, this.otherPlayer(player), depth+1,maxDepth, a, b);
@@ -238,7 +233,7 @@ angular.module('connectFourApp')
               a = minimax;
             }
 
-            if(a >= b)
+            if(a > b)
               break;
           }
         }
@@ -249,7 +244,7 @@ angular.module('connectFourApp')
             if(minimax < b) {
               b = minimax;
             }
-            if(a >= b)
+            if(a > b)
               break;
           }
         }
@@ -275,14 +270,10 @@ angular.module('connectFourApp')
      * @returns {number}
      */
     this.evaluate = function (board, player) {
-      var curCol = 0;
-      var curRow = 0;
       var value = 0;
 
       for(var row = 0; row < ROWS; row++) {
         for (var column = 0; column < COLUMNS; column++) {
-          curCol = column;
-          curRow = row;
 
           //Vertical 3 in a row
           if (row > 2
@@ -304,28 +295,24 @@ angular.module('connectFourApp')
 
 
           //evaluate horizontal
-            if (curCol < COLUMNS - 3) {
-              value += 3*this.checkForTwo(board, row, curCol, player, DIRECTIONS[2]);
-              value += 3*this.checkForThree(board, row, curCol, player, DIRECTIONS[2]);
+            if (column < COLUMNS - 3) {
+              value += 3*this.checkForTwo(board, row, column, player, DIRECTIONS[2]);
+              value += 3*this.checkForThree(board, row, column, player, DIRECTIONS[2]);
             }
-          curCol = column;
 
 
           //evaluate NE
-            if (curCol < COLUMNS - 3 && curRow > 2) {
-              value += 2*this.checkForTwo(board, curRow, curCol, player, DIRECTIONS[1]);
-              value += 2*this.checkForThree(board, curRow, curCol, player, DIRECTIONS[1]);
+            if (column < COLUMNS - 3 && row > 2) {
+              value += 2*this.checkForTwo(board, row, column, player, DIRECTIONS[1]);
+              value += 2*this.checkForThree(board, row, column, player, DIRECTIONS[1]);
             }
-
-          curCol = column;
-          curRow = row;
 
 
           //evaluate NW
 
-            if (curCol > 2 && curRow > 2) {
-              value += 2*this.checkForTwo(board, curRow, curCol, player, DIRECTIONS[3]);
-              value += 2*this.checkForThree(board, curRow, curCol, player, DIRECTIONS[3]);
+            if (column > 2 && row > 2) {
+              value += 2*this.checkForTwo(board, row, column, player, DIRECTIONS[3]);
+              value += 2*this.checkForThree(board, row, column, player, DIRECTIONS[3]);
             }
         }
       }
